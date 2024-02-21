@@ -86,4 +86,28 @@ class TodosLocalStorageService {
       return (defaultErrorMessage, null);
     }
   }
+
+  Future<String?> removeTodo(String key) async {
+    try {
+      final String? todosJson = await _localStorageService.get(todosKey);
+
+      if (todosJson != null) {
+        List<TodoModel> todos = (jsonDecode(todosJson) as List)
+            .map<TodoModel>((todo) => TodoModel.fromMap(todo))
+            .toList();
+        todos.removeWhere((todo) => todo.id == key);
+        final String updatedTodosJson =
+            jsonEncode(todos.map((todo) => todo.toMap()).toList());
+        await _localStorageService.set(todosKey, updatedTodosJson);
+        return null;
+      }
+
+      return "Tarefas não encontradas";
+    } on LocalStorageException catch (e) {
+      return e.message;
+    } catch (error, st) {
+      log('Erro ao remover tarefa', error: error, stackTrace: st);
+      return defaultErrorMessage;
+    }
+  }
 }

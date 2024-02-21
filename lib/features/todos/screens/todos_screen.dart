@@ -89,8 +89,13 @@ class _TodosScreenState extends State<TodosScreen> {
                         TodoTitleAndDescrptionWidget(todo),
                         TodoDateWidget(todo),
                         IconButton(
-                          icon: const Icon(Icons.delete_forever),
-                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.delete_forever,
+                            color: Colors.white,
+                          ),
+                          onPressed: () async {
+                            await todosCtrl.removeTodo(todo.id);
+                          },
                         )
                       ],
                     );

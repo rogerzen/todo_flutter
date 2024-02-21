@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_flutter/shared/erros/Local_storage_exception.dart';
 import 'package:todo_flutter/shared/models/todo_model.dart';
 import 'package:todo_flutter/shared/services/local_storage/todos_local_storage_service.dart';
 
@@ -79,5 +80,16 @@ class TodosController extends ChangeNotifier {
     }
 
     return error;
+  }
+
+  Future<String?> removeTodo(String id) async {
+    try {
+      await _todosLocalStorageService.removeTodo(id);
+      todos.removeWhere((todo) => todo.id == id);
+      notifyListeners();
+      return null;
+    } on LocalStorageException catch (e) {
+      return e.message;
+    }
   }
 }

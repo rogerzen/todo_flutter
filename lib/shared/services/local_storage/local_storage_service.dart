@@ -37,4 +37,15 @@ class LocalStorageService {
       throw LocalStorageException(errorMessage);
     }
   }
+
+  Future<void> remove(String key) async {
+    const storage = Storage.FlutterSecureStorage();
+    try {
+      await storage.delete(key: key);
+    } catch (error, st) {
+      final errorMessage = "Erro removing key: $key";
+      log(errorMessage, error: error, stackTrace: st);
+      throw LocalStorageException(errorMessage);
+    }
+  }
 }
