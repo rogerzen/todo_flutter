@@ -1,0 +1,26 @@
+name: todo_flutter
+description: Lista de tarefa.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.1.5 <4.0.0'
+
+dependencies:
+  provider: ^6.0.5
+  uuid: ^3.0.7
+  flutter_secure_storage: ^8.0.0
+ 
+  flutter_localizations: 
+    sdk: flutter
+
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
